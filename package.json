@@ -2,6 +2,6 @@
   "name": "xkcd-imgs",
   "version": "0.0.1",
   "dependencies": {
-  			"xkcd-imgs" : "0.3.0"
+      "xkcd-imgs" : "1.0.0"
   }
 }

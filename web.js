@@ -11,7 +11,14 @@ var server = http.createServer(function (request, resp) {
     headers["Access-Control-Allow-Headers"] = "X-Requested-With, Access-Control-Allow-Origin, X-HTTP-Method-Override, Content-Type, Authorization, Accept";
     // respond to the request
     resp.writeHead(200, headers);  
-  xkcd.img(function(res){resp.end(JSON.stringify({"url":res.url}))});
+    
+    xkcd.img(function(err,res){
+        if(!err){
+           resp.end(JSON.stringify(res));
+        } else {
+            resp.end(JSON.stringify({error:err.message}));
+        }
+    });
 });
 
 var port = process.env.PORT || 3000;
