@@ -1,28 +1,54 @@
-# xkcd-imgs-heroku
+# xkcd-imgs-deno
 
-Get random xkcd image urls. http://xkcd-imgs.herokuapp.com/
+Get xkcd comics via a CORS-enabled API. Designed for Deno Deploy.
 
-## features
+## Features
 
-* [X] responses in JSON format
-* [X] CORS support
+* JSON responses
+* CORS support for all origins
+* In-memory caching (1 hour TTL)
+* Request logging
 
-## API:
+## Endpoints
 
-```http
-GET|POST|PUT|DELETE|OPTIONS /
-```
+| Endpoint | Description |
+|----------|-------------|
+| `GET /` | Latest comic |
+| `GET /latest` | Latest comic |
+| `GET /random` | Random comic |
+| `GET /{number}` | Specific comic by number |
+| `GET /cache/stats` | Cache statistics |
+| `GET /cache/clear` | Clear cache |
 
-sample response ([schema reference](https://raw.githubusercontent.com/hemanth/xkcd-imgs-heroku/master/response-schema.json)):
-
-```http
-200 OK
-```
+## Sample Response
 
 ```json
 {
-  "url": "http://imgs.xkcd.com/comics/mystery_news.png",
-  "title": "If you find and stop the video, but you've--against all odds--gotten curious about the trade summit, just leave the tab opened. It will mysteriously start playing again 30 minutes later!"
+  "success": true,
+  "data": {
+    "num": 2867,
+    "title": "Example Comic",
+    "img": "https://imgs.xkcd.com/comics/example.png",
+    "alt": "Alt text here"
+  },
+  "cached": false,
+  "endpoint": "latest",
+  "timestamp": "2024-01-15T10:30:00.000Z"
 }
 ```
 
+## Deploy to Deno Deploy
+
+1. Fork or push this repo to GitHub
+2. Go to [Deno Deploy](https://dash.deno.com/)
+3. Create a new project and link your GitHub repo
+4. Set the entrypoint to `xkcd-api.ts`
+5. Deploy!
+
+## Run Locally
+
+```bash
+deno task start
+# or with watch mode:
+deno task dev
+```

@@ -1,8 +1,6 @@
-// xkcd-api-cached.ts
+// xkcd-api for Deno Deploy
 
-import { serve } from "https://deno.land/std@0.210.0/http/server.ts";
-
-const PORT = 8000;
+const PORT = parseInt(Deno.env.get("PORT") || "8000");
 const CACHE_DURATION = 3600000; // 1 hour in milliseconds
 
 // Simple in-memory cache
@@ -197,22 +195,22 @@ async function handler(req: Request): Promise<Response> {
 
 // Start server
 console.log(`
-🚀 XKCD CORS API Server
+XKCD CORS API Server
    Running on: http://localhost:${PORT}
-   
-📚 Endpoints:
-   GET /          → Latest comic
-   GET /latest    → Latest comic
-   GET /random    → Random comic
-   GET /{number}  → Specific comic
-   GET /cache/stats → Cache statistics
-   GET /cache/clear → Clear cache
-   
-✨ Features:
-   • CORS enabled for all origins
-   • In-memory caching (1 hour TTL)
-   • Request logging
-   • Error handling
+
+Endpoints:
+   GET /          - Latest comic
+   GET /latest    - Latest comic
+   GET /random    - Random comic
+   GET /{number}  - Specific comic
+   GET /cache/stats - Cache statistics
+   GET /cache/clear - Clear cache
+
+Features:
+   - CORS enabled for all origins
+   - In-memory caching (1 hour TTL)
+   - Request logging
+   - Error handling
 `);
 
-await serve(handler, { port: PORT });
+Deno.serve({ port: PORT }, handler);

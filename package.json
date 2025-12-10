@@ -1,7 +1,0 @@
-{
-  "name": "xkcd-imgs",
-  "version": "0.0.1",
-  "dependencies": {
-      "xkcd-imgs" : "1.0.0"
-  }
-}
